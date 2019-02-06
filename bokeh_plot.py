@@ -6,7 +6,7 @@ from bokeh.models import ColumnDataSource, HoverTool, Div
 def bokeh_plot(df):
 
     output_file("html/plot.html", title="Billboard Top 100 Song Lyrics 1964-2015")
-    df['Colour'] = "olive"
+    df['Colour'] = "blue"
     df['Alpha'] = [0.8] * len(df)
 
     desc = Div(text=open("html/description.html", 'r').read(), width=800)
