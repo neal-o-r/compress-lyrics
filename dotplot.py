@@ -32,28 +32,28 @@ def dotplot(df, i=None):
 
 
 def all_dots(df):
-
+    """
     for i in df.index:
         print(i)
         dotplot(df, i)
-
+    """
     links = []
     for i, row in df.iterrows():
-        links.append('<a href="/images/lyrics/dots/{row.Song} -- {row.Artist}.png">link</a>')
+        links.append(f'<a href="/images/lyrics/dots/{row.Song} -- {row.Artist}.png">link</a>')
 
     df['Links'] = links
 
-    save_html(df[['Song', 'Artist', 'Year', 'Link']].to_html(index=False))
+    save_html(df[['Song', 'Artist', 'Year', 'Links']].to_html(index=False))
 
 
 def save_html(html):
-    with open("songs.html", "r") as f:
+    with open("songs.html", "w") as f:
         f.write(html)
 
 
 if __name__ == '__main__':
     df = pd.read_csv('data/billboard.csv')
-    df = df[df.Lyrics.astype(str).apply(len) > 20]
-    all_dots(df)
+    df["Lyrics"] = df.Lyrics.astype(str)
+    all_dots(df.query("Rank == 1"))
 
 
